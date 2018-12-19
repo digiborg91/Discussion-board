@@ -1,0 +1,25 @@
+<%= render @article %>
+
+<div id="details">
+  Published on <%= @article.created_at %> by <%= @article.user.try(:email) %>
+</div>
+
+<h3>  <%= link_to "Comments", "#", id: "comments-link" %> <small style="color:black; font-size: small;"> (<%= @article.comments.count %>  <% if @article.comments.count > 1  or @article.comments.count == 0%> Comments<% else %> Comment<% end %>)</small> </h3>
+
+<section id="commentsection">
+
+  <div class="row">
+    <%= render @commentsShow %>
+  </div>
+
+  <div class="flickr_pagination">
+    <div class="page_info">
+      <%= page_entries_info @commentsShow %>
+    </div>
+    <%= will_paginate @commentsShow, :container => false %>
+  </div>
+
+  <br>
+  <h3>Comment </h3>
+  <%= render :file => 'comments/new' %>
+</section>
